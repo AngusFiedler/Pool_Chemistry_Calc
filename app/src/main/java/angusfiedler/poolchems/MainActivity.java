@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public TextView currentpH;
@@ -105,62 +107,64 @@ public class MainActivity extends AppCompatActivity {
     }
     private double sodaRaisePH(double currentPH, double newPH, int poolCapacity)
     {
-        if (currentPH >= bracket15)
+        List<Double> bracket = Arrays.asList(6.0, 6.1, 6.2,6.3,6.4,6.5,6.6,6.7,6.8,6.9,7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4);
+        if (currentPH >= bracket.get(15))
             throw new IllegalArgumentException("This pH is high not low!");
         if (currentPH >= newPH)
             return 0;
-        else if (currentPH >= bracket14 && newPH >= bracket15)
+        else if (currentPH >= bracket.get(14) && newPH >= bracket.get(15))
             return sodaRaise14 * (poolCapacity / sPool);
-        else if (currentPH >= bracket13 && newPH >= bracket14)
-            return sodaRaisePH(bracket14,newPH,poolCapacity) + sodaRaise13 * (poolCapacity / sPool);
-        else if (currentPH >= bracket12 && newPH >= bracket13)
-            return sodaRaisePH(bracket13,newPH,poolCapacity) + sodaRaise12 * (poolCapacity / sPool);
-        else if (currentPH >= bracket11 && newPH >= bracket12)
-            return sodaRaisePH(bracket12,newPH,poolCapacity) + sodaRaise11 * (poolCapacity / sPool);
-        else if (currentPH >= bracket10 && newPH >= bracket11)
-            return sodaRaisePH(bracket11,newPH,poolCapacity) + sodaRaise10 * (poolCapacity / sPool);
-        else if (currentPH >= bracket9 && newPH >= bracket10)
-            return sodaRaisePH(bracket10,newPH,poolCapacity) + sodaRaise9 * (poolCapacity / sPool);
-        else if (currentPH >= bracket8 && newPH >= bracket9)
-            return sodaRaisePH(bracket9,newPH,poolCapacity) + sodaRaise8 * (poolCapacity / sPool);
-        else if (currentPH >= bracket7 && newPH >= bracket8)
-            return sodaRaisePH(bracket8,newPH,poolCapacity) + sodaRaise7 * (poolCapacity / sPool);
-        else if (currentPH >= bracket6 && newPH >= bracket7)
-            return sodaRaisePH(bracket7,newPH,poolCapacity) + sodaRaise6 * (poolCapacity / sPool);
-        else if (currentPH >= bracket5 && newPH >= bracket6)
-            return sodaRaisePH(bracket6,newPH,poolCapacity) + sodaRaise5 * (poolCapacity / sPool);
-        else if (currentPH >= bracket4 && newPH >= bracket5)
-            return sodaRaisePH(bracket5,newPH,poolCapacity) + sodaRaise4 * (poolCapacity / sPool);
-        else if (currentPH >= bracket3 && newPH >= bracket4)
-            return sodaRaisePH(bracket4,newPH,poolCapacity) + sodaRaise3 * (poolCapacity / sPool);
-        else if (currentPH >= bracket2 && newPH >= bracket3)
-            return sodaRaisePH(bracket3,newPH,poolCapacity) + sodaRaise2 * (poolCapacity / sPool);
-        else if (currentPH >= bracket1 && newPH >= bracket2)
-            return sodaRaisePH(bracket2,newPH,poolCapacity) + sodaRaise1 * (poolCapacity / sPool);
-        else if (currentPH >= bracket && newPH >= bracket1)
-            return sodaRaisePH(bracket1,newPH,poolCapacity) + sodaRaise * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(13) && newPH >= bracket.get(14))
+            return sodaRaisePH(bracket.get(14),newPH,poolCapacity) + sodaRaise13 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(12) && newPH >= bracket.get(13))
+            return sodaRaisePH(bracket.get(13),newPH,poolCapacity) + sodaRaise12 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(11) && newPH >= bracket.get(12))
+            return sodaRaisePH(bracket.get(12),newPH,poolCapacity) + sodaRaise11 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(10) && newPH >= bracket.get(11))
+            return sodaRaisePH(bracket.get(11),newPH,poolCapacity) + sodaRaise10 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(9) && newPH >= bracket.get(10))
+            return sodaRaisePH(bracket.get(10),newPH,poolCapacity) + sodaRaise9 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(8) && newPH >= bracket.get(9))
+            return sodaRaisePH(bracket.get(9),newPH,poolCapacity) + sodaRaise8 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(7) && newPH >= bracket.get(8))
+            return sodaRaisePH(bracket.get(8),newPH,poolCapacity) + sodaRaise7 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(6) && newPH >= bracket.get(7))
+            return sodaRaisePH(bracket.get(7),newPH,poolCapacity) + sodaRaise6 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(5) && newPH >= bracket.get(6))
+            return sodaRaisePH(bracket.get(6),newPH,poolCapacity) + sodaRaise5 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(4) && newPH >= bracket.get(5))
+            return sodaRaisePH(bracket.get(5),newPH,poolCapacity) + sodaRaise4 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(3) && newPH >= bracket.get(4))
+            return sodaRaisePH(bracket.get(4),newPH,poolCapacity) + sodaRaise3 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(2) && newPH >= bracket.get(3))
+            return sodaRaisePH(bracket.get(3),newPH,poolCapacity) + sodaRaise2 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(1) && newPH >= bracket.get(2))
+            return sodaRaisePH(bracket.get(2),newPH,poolCapacity) + sodaRaise1 * (poolCapacity / sPool);
+        else if (currentPH >= bracket.get(0) && newPH >= bracket.get(1))
+            return sodaRaisePH(bracket.get(1),newPH,poolCapacity) + sodaRaise * (poolCapacity / sPool);
 
         else
             throw new IllegalArgumentException("An error has occurred");
     }
 
     private double bisulfateLowerPH(double currentPH, double newPH, int poolCapacity) {
-        if (currentPH <= bracket10)
+        List<Double> bracket = Arrays.asList(6.0, 6.1, 6.2,6.3,6.4,6.5,6.6,6.7,6.8,6.9,7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4);
+        if (currentPH <= bracket.get(10))
             return 0;
         if (currentPH <= newPH)
             return 0;
-        else if (currentPH <= bracket19 && newPH <= bracket18)
+        else if (currentPH <= bracket.get(19) && newPH <= bracket.get(18))
             return bisulfateLower5 *(poolCapacity/sPool);
-        else if (currentPH <= bracket20 && newPH <= bracket19)
-            return bisulfateLowerPH(bracket19, newPH, poolCapacity) + bisulfateLower4 *(poolCapacity/sPool);
-        else if (currentPH <= bracket21 && newPH <= bracket20)
-            return bisulfateLowerPH(bracket20, newPH, poolCapacity) + bisulfateLower3 *(poolCapacity/sPool);
-        else if (currentPH <= bracket22 && newPH <= bracket21)
-            return bisulfateLowerPH(bracket21, newPH, poolCapacity) + bisulfateLower2 *(poolCapacity/sPool);
-        else if (currentPH <= bracket23 && newPH <= bracket22)
-            return bisulfateLowerPH(bracket22, newPH, poolCapacity) + bisulfateLower1 *(poolCapacity/sPool);
-        else if (currentPH <= bracket24 && newPH <= bracket23)
-            return bisulfateLowerPH(bracket23, newPH, poolCapacity) + bisulfateLower *(poolCapacity/sPool);
+        else if (currentPH <= bracket.get(20) && newPH <= bracket.get(19))
+            return bisulfateLowerPH(bracket.get(19), newPH, poolCapacity) + bisulfateLower4 *(poolCapacity/sPool);
+        else if (currentPH <= bracket.get(21) && newPH <= bracket.get(20))
+            return bisulfateLowerPH(bracket.get(20), newPH, poolCapacity) + bisulfateLower3 *(poolCapacity/sPool);
+        else if (currentPH <= bracket.get(22) && newPH <= bracket.get(21))
+            return bisulfateLowerPH(bracket.get(21), newPH, poolCapacity) + bisulfateLower2 *(poolCapacity/sPool);
+        else if (currentPH <= bracket.get(23) && newPH <= bracket.get(22))
+            return bisulfateLowerPH(bracket.get(22), newPH, poolCapacity) + bisulfateLower1 *(poolCapacity/sPool);
+        else if (currentPH <= bracket.get(24) && newPH <= bracket.get(23))
+            return bisulfateLowerPH(bracket.get(23), newPH, poolCapacity) + bisulfateLower *(poolCapacity/sPool);
 
         else
             throw new IllegalArgumentException("An error has occurred");
@@ -170,32 +174,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final double sPool = 10000; //standard pool capacity
-    //pH Levels
-    private static final double bracket = 6.0;
-    private static final double bracket1 = 6.1;
-    private static final double bracket2 = 6.2;
-    private static final double bracket3 = 6.3;
-    private static final double bracket4 = 6.4;
-    private static final double bracket5 = 6.5;
-    private static final double bracket6 = 6.6;
-    private static final double bracket7 = 6.7;
-    private static final double bracket8 = 6.8;
-    private static final double bracket9 = 6.9;
-    private static final double bracket10 = 7.0;
-    private static final double bracket11 = 7.1;
-    private static final double bracket12 = 7.2;
-    private static final double bracket13 = 7.3;
-    private static final double bracket14 = 7.4;
-    private static final double bracket15 = 7.5;
-    private static final double bracket16 = 7.6;
-    private static final double bracket17 = 7.7;
-    private static final double bracket18 = 7.8;
-    private static final double bracket19 = 7.9;
-    private static final double bracket20 = 8.0;
-    private static final double bracket21 = 8.1;
-    private static final double bracket22 = 8.2;
-    private static final double bracket23 = 8.3;
-    private static final double bracket24 = 8.4;
 
     //amount of Bisulfate needed per 10,000 gallons, in ounces
     private static final double bisulfateLower = 2.2;   //8.4 to 8.3
