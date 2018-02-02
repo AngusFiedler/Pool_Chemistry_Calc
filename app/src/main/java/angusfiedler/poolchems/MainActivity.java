@@ -42,23 +42,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentpH.getText().length() > 0 && newpH.getText().length() > 0 && poolCapacity.getText().length() > 0) {
-                    final double currentPH = Double.parseDouble(currentpH.getText().toString());
-                    final double newPH = Double.parseDouble(newpH.getText().toString());
+                    double currentPH = Double.parseDouble(currentpH.getText().toString());
+                    double newPH = Double.parseDouble(newpH.getText().toString());
 
                     phChemical.setText(phChemical(currentPH, newPH));
                     String poolCapComma = poolCapacity.getText().toString();
                     final int poolCap = Integer.valueOf(poolCapComma.replaceAll(",", "").toString());
                     //TextView invalid = (TextView) findViewById(R.id.invalid)
                     if (newPH > currentPH) {
-                        Result.setText(Double.toString((RoundTo2Decimals(sodaRaisePH(currentPH, newPH, poolCap)))));
+                        if(newPH > 7.5){
+                            newpH.setText(Double.toString(7.5));
+                            newPH = Double.parseDouble(newpH.getText().toString());
+                            Result.setText(Double.toString((RoundTo2Decimals(sodaRaisePH(currentPH, newPH, poolCap)))));
+                        }
+                        else if (currentPH < 6.0){
+                            Result.setText(Double.toString((RoundTo2Decimals(sodaRaisePH(currentPH, newPH, poolCap)))));
+                        }
                     } else if (newPH == currentPH) {
                         Result.setText(Double.toString(0));
                     } else {
                         Result.setText(Double.toString(RoundTo2Decimals(bisulfateLowerPH(currentPH, newPH, poolCap))));
                     }
                 }
-
-                //Result.setText(Double.toString(poolCap));
             }
         });
     }
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             return phLowerChemical;
     }
 
-    int i = 0;
+
     double total = 0;
 
     private double sodaRaisePH(double currentPH, double newPH, int poolCapacity) {
@@ -117,71 +122,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return total;
-
-        /*
-        if (currentPH >= bracket.get(15))
-            throw new IllegalArgumentException("This pH is high not low!");
-        if (currentPH >= newPH)
-            return 0;
-        else if (currentPH >= bracket.get(14) && newPH >= bracket.get(15))
-            return sodaRaise.get(14) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(13) && newPH >= bracket.get(14))
-            return sodaRaisePH(bracket.get(14),newPH,poolCapacity) + sodaRaise.get(13) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(12) && newPH >= bracket.get(13))
-            return sodaRaisePH(bracket.get(13),newPH,poolCapacity) + sodaRaise.get(12) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(11) && newPH >= bracket.get(12))
-            return sodaRaisePH(bracket.get(12),newPH,poolCapacity) + sodaRaise.get(11) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(10) && newPH >= bracket.get(11))
-            return sodaRaisePH(bracket.get(11),newPH,poolCapacity) + sodaRaise.get(10) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(9) && newPH >= bracket.get(10))
-            return sodaRaisePH(bracket.get(10),newPH,poolCapacity) + sodaRaise.get(9) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(8) && newPH >= bracket.get(9))
-            return sodaRaisePH(bracket.get(9),newPH,poolCapacity) + sodaRaise.get(8) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(7) && newPH >= bracket.get(8))
-            return sodaRaisePH(bracket.get(8),newPH,poolCapacity) + sodaRaise.get(7) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(6) && newPH >= bracket.get(7))
-            return sodaRaisePH(bracket.get(7),newPH,poolCapacity) + sodaRaise.get(6) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(5) && newPH >= bracket.get(6))
-            return sodaRaisePH(bracket.get(6),newPH,poolCapacity) + sodaRaise.get(5) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(4) && newPH >= bracket.get(5))
-            return sodaRaisePH(bracket.get(5),newPH,poolCapacity) + sodaRaise.get(4) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(3) && newPH >= bracket.get(4))
-            return sodaRaisePH(bracket.get(4),newPH,poolCapacity) + sodaRaise.get(3) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(2) && newPH >= bracket.get(3))
-            return sodaRaisePH(bracket.get(3),newPH,poolCapacity) + sodaRaise.get(2) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(1) && newPH >= bracket.get(2))
-            return sodaRaisePH(bracket.get(2),newPH,poolCapacity) + sodaRaise.get(1) * (poolCapacity / sPool);
-        else if (currentPH >= bracket.get(0) && newPH >= bracket.get(1))
-            return sodaRaisePH(bracket.get(1),newPH,poolCapacity) + sodaRaise.get(0) * (poolCapacity / sPool);
-
-        else
-            throw new IllegalArgumentException("An error has occurred");
-            */
     }
 
     private double bisulfateLowerPH(double currentPH, double newPH, int poolCapacity) {
         List<Double> bracket = Arrays.asList(6.0, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 7.0, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.0, 8.1, 8.2, 8.3, 8.4);
-        //6.0 to 7.5 array
+        //8.4 to 7.8 array
         List<Double> bisulfateLower = Arrays.asList(2.2, 2.0, 1.9, 1.9, 2.0, 2.2);
-        if (currentPH <= bracket.get(10))
-            return 0;
-        if (currentPH <= newPH)
-            return 0;
-        else if (currentPH <= bracket.get(19) && newPH <= bracket.get(18))
-            return bisulfateLower.get(5) * (poolCapacity / sPool);
-        else if (currentPH <= bracket.get(20) && newPH <= bracket.get(19))
-            return bisulfateLowerPH(bracket.get(19), newPH, poolCapacity) + bisulfateLower.get(4) * (poolCapacity / sPool);
-        else if (currentPH <= bracket.get(21) && newPH <= bracket.get(20))
-            return bisulfateLowerPH(bracket.get(20), newPH, poolCapacity) + bisulfateLower.get(3) * (poolCapacity / sPool);
-        else if (currentPH <= bracket.get(22) && newPH <= bracket.get(21))
-            return bisulfateLowerPH(bracket.get(21), newPH, poolCapacity) + bisulfateLower.get(2) * (poolCapacity / sPool);
-        else if (currentPH <= bracket.get(23) && newPH <= bracket.get(22))
-            return bisulfateLowerPH(bracket.get(22), newPH, poolCapacity) + bisulfateLower.get(1) * (poolCapacity / sPool);
-        else if (currentPH <= bracket.get(24) && newPH <= bracket.get(23))
-            return bisulfateLowerPH(bracket.get(23), newPH, poolCapacity) + bisulfateLower.get(0) * (poolCapacity / sPool);
 
-        else
-            throw new IllegalArgumentException("An error has occurred");
+
+        for (int i = 18, k = 5; i <= 24; i++, k--) {
+            if (currentPH <= newPH || currentPH <= bracket.get(18))
+                return 0;
+            else if (currentPH <= bracket.get(i + 1) && newPH <= bracket.get(i)) {
+                return bisulfateLowerPH(bracket.get(i), newPH, poolCapacity) + bisulfateLower.get(k) * (poolCapacity / sPool);
+            }
+        }
+        return total;
     }
 
 
