@@ -47,20 +47,41 @@ public class MainActivity extends AppCompatActivity {
 
                     phChemical.setText(phChemical(currentPH, newPH));
                     String poolCapComma = poolCapacity.getText().toString();
-                    final int poolCap = Integer.valueOf(poolCapComma.replaceAll(",", "").toString());
+                    final int poolCap = Integer.valueOf(poolCapComma.replaceAll(",", ""));
                     //TextView invalid = (TextView) findViewById(R.id.invalid)
                     if (newPH > currentPH) {
-                        if(newPH > 7.5){
+                        if(newPH > 7.5 && currentPH < 6.0){
                             newpH.setText(Double.toString(7.5));
                             newPH = Double.parseDouble(newpH.getText().toString());
-                            Result.setText(Double.toString((RoundTo2Decimals(sodaRaisePH(currentPH, newPH, poolCap)))));
+                            currentpH.setText(Double.toString(6.0));
+                            currentPH = Double.parseDouble(currentpH.getText().toString());
                         }
                         else if (currentPH < 6.0){
-                            Result.setText(Double.toString((RoundTo2Decimals(sodaRaisePH(currentPH, newPH, poolCap)))));
+                            currentpH.setText(Double.toString(6.0));
+                            currentPH = Double.parseDouble(currentpH.getText().toString());
                         }
+                        else if(newPH > 7.5){
+                            newpH.setText(Double.toString(7.5));
+                            newPH = Double.parseDouble(newpH.getText().toString());
+                        }
+                        Result.setText(Double.toString((RoundTo2Decimals(sodaRaisePH(currentPH, newPH, poolCap)))));
                     } else if (newPH == currentPH) {
                         Result.setText(Double.toString(0));
                     } else {
+                        if (newPH < 7.8 && currentPH > 8.4){
+                            newpH.setText(Double.toString(7.8));
+                            newPH = Double.parseDouble(newpH.getText().toString());
+                            currentpH.setText(Double.toString(8.4));
+                            currentPH = Double.parseDouble(currentpH.getText().toString());
+                        }
+                        else if(newPH < 7.8){
+                            newpH.setText(Double.toString(7.8));
+                            newPH = Double.parseDouble(newpH.getText().toString());
+                        }
+                        else if (currentPH > 8.4) {
+                            currentpH.setText(Double.toString(8.4));
+                            currentPH = Double.parseDouble(currentpH.getText().toString());
+                        }
                         Result.setText(Double.toString(RoundTo2Decimals(bisulfateLowerPH(currentPH, newPH, poolCap))));
                     }
                 }
